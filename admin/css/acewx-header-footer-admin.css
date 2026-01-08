@@ -1,0 +1,86 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+ /* Ace Header/Footer Metabox Styles */
+.acewx-metabox {
+    padding: 15px;
+    border-radius: 8px;
+  
+    font-family: sans-serif;
+}
+
+.acewx-metabox p {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.acewx-metabox .acewx-radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.acewx-metabox .acewx-radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.acewx-metabox select {
+    width: 100%;
+   
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+#acewx-specific-pages {
+    margin-bottom: 12px;
+    display: none; /* default hidden */
+}
+/* Toggle switch */
+.acewx-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.acewx-switch input {
+    display: none;
+}
+
+.acewx-slider {
+    position: relative;
+    width: 46px;
+    height: 24px;
+    background-color: #dcdcde;
+    border-radius: 12px;
+    transition: background-color 0.25s ease;
+}
+
+.acewx-slider::before {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 3px;
+    top: 3px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+}
+
+/* ON state */
+.acewx-switch input:checked + .acewx-slider {
+    background-color: #00a32a;
+}
+
+.acewx-switch input:checked + .acewx-slider::before {
+    transform: translateX(22px);
+}

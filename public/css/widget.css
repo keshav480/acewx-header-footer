@@ -1,0 +1,204 @@
+.custom-nav-menu ul.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Layout */
+.custom-nav-menu.layout-row ul.menu {
+    flex-direction: row;
+}
+.custom-nav-menu.layout-column ul.menu {
+    flex-direction: column;
+}
+
+/* Alignment */
+.custom-nav-menu.align-left ul.menu {
+    justify-content: flex-start;
+}
+.custom-nav-menu.align-center ul.menu {
+    justify-content: center;
+}
+.custom-nav-menu.align-right ul.menu {
+    justify-content: flex-end;
+}
+
+/* Hamburger */
+.acewx-hf-menu-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+.acewx-hf-menu-toggle span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background: #000;
+    margin: 5px 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    nav.custom-nav-menu.mobile-sidebar ul li:hover > .sub-menu{
+        display: block;
+    }
+   .custom-nav-menu.mobile-sidebar.icon-right ul.menu > li > a {
+        flex-direction: row;
+    justify-content: space-between;
+    }
+    .acewx-hf-menu-toggle {
+        display: block;
+    }
+    .custom-nav-menu .menu-wrapper {
+        display: none;
+    }
+    .custom-nav-menu.active .menu-wrapper {
+        display: block;
+    }
+    .custom-nav-menu ul.menu {
+        flex-direction: column;
+    }
+    nav.mobile-sidebar.custom-nav-menu .sidebar-content.menu-wrapper {
+    display: block;
+}
+}
+ .mobile-sidebar {
+        display: none;
+    }
+@media (max-width: 768px) {
+
+    nav.mobile-sidebar .sidebar-content.menu-wrapper ul.menu ul.sub-menu{
+        display: none;
+    }
+
+nav.mobile-sidebar.custom-nav-menu.align-right.layout-.icon-right .menu-wrapper {
+    display: block;
+}
+
+.mobile-sidebar .menu li a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.mobile-sidebar .acewx-menu-item-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+
+    .mobile-sidebar ul.menu {
+        margin: 0;
+    }
+    .mobile-sidebar .acewx-menu-item-icon {
+        display: inline-flex;
+        align-items: center;
+        margin-right: 8px;
+    }
+    ul.menu li {
+        list-style: none;
+    }
+    .acewx-hf-menu-toggle span {
+        width: 24px;
+        height: 2px;
+        background: #000;
+    }
+
+    .mobile-sidebar {
+        display: block;
+    }
+
+    /* Overlay */
+    .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        z-index: 1000;
+    }
+
+    /* Sidebar panel */
+    .sidebar-content {
+        position: fixed;
+        top: 0;
+        right: 0;              /* 👈 move to right */
+        left: auto;
+        width: 280px;
+        height: 100vh;
+        background: #fff;
+        transform: translateX(100%); /* 👈 start off-screen right */
+        transition: transform 0.4s ease;
+        z-index: 1001;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    /* Open state */
+    .sidebar-open .sidebar-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .sidebar-open .sidebar-content {
+        transform: translateX(0);
+    }
+   .sidebar-close-menu-sidebar {
+    margin-bottom: 13px;
+}
+}
+ul#menu-header ul.sub-menu {
+    display: none;
+}
+ul#menu-header li:hover > .sub-menu {
+    display: block;
+}
+ul.sub-menu li a {
+    /* color: #fff !important; */
+}
+ul.sub-menu li {
+    list-style: none;
+    margin-top: 8px;
+     /* border-bottom: 1px solid; */
+}
+
+ul.sub-menu {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#menu-header > li > ul.sub-menu {
+    /* background: #000; */
+    position: absolute;
+    z-index: 9999;
+    width: 40%;
+    padding: 7px !important;
+}
+.custom-nav-menu .acewx-menu-item-icon {
+    margin-right: 8px;
+    font-size: 8px;
+    vertical-align: middle;
+    width: 25px;
+}
+.acewx-menu-item-icon {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 6px;
+}
+.custom-nav-menu.icon-right ul.menu > li > a {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+nav.custom-nav-menu.align-right.layout-.icon-right ul.menu .sub-menu  li > a{
+    display: flex;
+    justify-content: space-between;
+}
+
+mobile-sidebar.custom-nav-menu.align-right.layout-.icon-right {
+    display: none;
+}
+
