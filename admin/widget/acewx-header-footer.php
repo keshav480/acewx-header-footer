@@ -217,7 +217,7 @@ class Acewx_Nav_Menu_Widget extends \Elementor\Widget_Base {
             'tab'   => \Elementor\Controls_Manager::TAB_STYLE,
         ]
     );
-    $this->add_control(
+    $this->add_responsive_control(
         'menu_item_icon',
         [
             'label' => __( 'Menu Icon', 'acewx-header-footer' ),
@@ -226,6 +226,7 @@ class Acewx_Nav_Menu_Widget extends \Elementor\Widget_Base {
             'render_type' => 'template',
         ]
     );
+    
     $this->add_responsive_control(
         'menu_icon_size',
         [
@@ -559,70 +560,69 @@ $this->add_responsive_control(
     $this->end_controls_section();
 }
 
-
     protected function render() {
         $settings = $this->get_settings_for_display();
         if ( empty( $settings['nav_menu'] ) ) return;
-        $icon_html = '';
+
+        // ---------- Desktop Icon HTML ----------
+        $desktop_icon_html = '';
         if ( ! empty( $settings['menu_item_icon']['value'] ) ) {
-            $icon_html = '<span class="acewx-menu-item-icon">';
+            $desktop_icon_html = '<span class="acewx-menu-item-icon icon-desktop">';
             ob_start();
             \Elementor\Icons_Manager::render_icon( $settings['menu_item_icon'], [ 'aria-hidden' => 'true' ] );
-            $icon_html .= ob_get_clean();
-            $icon_html .= '</span> ';
+            $desktop_icon_html .= ob_get_clean();
+            $desktop_icon_html .= '</span>';
         }
-        $walker = new Acewx_Menu_Icon_Walker( $icon_html, $settings['menu_icon_position'] );
+
+        // ---------- Mobile Icon HTML ----------
+        $mobile_icon_html = '';
+        if ( ! empty( $settings['menu_item_icon_mobile']['value'] ) ) {
+            $mobile_icon_html = '<span class="acewx-menu-item-icon icon-mobile">';
+            ob_start();
+            \Elementor\Icons_Manager::render_icon( $settings['menu_item_icon_mobile'], [ 'aria-hidden' => 'true' ] );
+            $mobile_icon_html .= ob_get_clean();
+            $mobile_icon_html .= '</span>';
+        } else {
+            // fallback to desktop icon
+            $mobile_icon_html = $desktop_icon_html;
+        }
+
+        // Walkers
+        $desktop_walker = new Acewx_Menu_Icon_Walker( $desktop_icon_html, $settings['menu_icon_position'] );
+        $mobile_walker  = new Acewx_Menu_Icon_Walker( $mobile_icon_html, $settings['menu_icon_position'] );
         ?>
-        <nav class="custom-nav-menu align-<?php echo esc_attr($settings['menu_alignment']); ?> layout-<?php echo esc_attr($settings['menu_layout']); ?> icon-<?php echo esc_attr($settings['menu_icon_align']); ?>">
+        <!-- Desktop Nav -->
+        <nav class="custom-nav-menu desktop align-<?php echo esc_attr($settings['menu_alignment']); ?> layout-<?php echo esc_attr($settings['menu_layout']); ?> icon-<?php echo esc_attr($settings['menu_icon_align']); ?>">
             <?php if ( $settings['enable_hamburger'] === 'yes' ) : ?>
-                <button class="acewx-hf-menu-toggle"aria-expanded="false"><span></span><span></span><span></span></button>
+                <button class="acewx-hf-menu-toggle" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
             <?php endif; ?>
-            <div class="menu-wrapper">
+            <div class="menu-wrapper <?php echo esc_attr($settings['enable_hamburger']) === 'yes' ? 'humburger' : ''; ?>">
                 <?php
                 wp_nav_menu([
-                    'menu' => $settings['nav_menu'],
+                    'menu'        => $settings['nav_menu'],
                     'container'   => false,
                     'menu_class'  => 'menu',
-                     'walker'     => $walker,
-                    'acewx_icon'  => $settings['menu_item_icon'],
-                    ]);
-                
-                    ?>
-            </div>
-        </nav> 
-        <nav class="mobile-sidebar custom-nav-menu align-<?php echo esc_attr($settings['menu_alignment']); ?> layout-<?php echo esc_attr($settings['menu_layout']); ?> icon-<?php echo esc_attr($settings['menu_icon_align']); ?>">
-           <div class="sidebar-overlay"></div>
-             <div class="sidebar-content menu-wrapper">
-                <button class="sidebar-close-menu-sidebar">X</button>
-                <div class="sidebar-logo">
-                    <?php
-                    if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) {
-                        the_custom_logo();
-                    } else {
-                        ?>
-                        <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="site-title">
-                            <?php echo esc_html( get_bloginfo( 'name' ) ); ?>
-                        </a>
-                        <?php
-                    }
-                    ?>
-                 </div>
-                <?php
-                wp_nav_menu([
-                    'menu' => $settings['nav_menu'],
-                    'container'   => false,
-                    'menu_class'  => 'menu',
-                    'walker'     => $walker,
-                    'acewx_icon'  => $settings['menu_item_icon'],
-                    ]);
-              
-                    ?>
+                    'walker'      => $desktop_walker,
+                ]);
+                ?>
             </div>
         </nav>
-         <?php
+        <!-- Mobile Sidebar -->
+        <div id="custom-nav-menu-sidebar">
+            <a href="javascript:void(0)" id="sidebar-close-menu-sidebar" class="sidebar-close-menu-sidebar">&times; Close</a>
+            <?php
+            wp_nav_menu([
+                'menu'        => $settings['nav_menu'],
+                'container'   => false,
+                'menu_class'  => 'menu',
+                'walker'      => $mobile_walker,
+            ]);
+            ?>
+        </div>
+        <?php
     }
-
-
 }
 class Acewx_Menu_Icon_Walker extends Walker_Nav_Menu {
 
