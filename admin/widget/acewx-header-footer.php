@@ -507,58 +507,74 @@ $this->add_responsive_control(
                 'separator' => 'before',
             ]
         );
-        $this->add_control(
-    'submenu_item_border_type',
-    [
-        'label' => __( 'Border Type', 'acewx-header-footer' ),
-        'type'  => \Elementor\Controls_Manager::SELECT,
-        'options' => [
-            'none'   => __( 'None', 'acewx-header-footer' ),
-            'solid'  => __( 'Solid', 'acewx-header-footer' ),
-            'dashed' => __( 'Dashed', 'acewx-header-footer' ),
-            'dotted' => __( 'Dotted', 'acewx-header-footer' ),
-            'double' => __( 'Double', 'acewx-header-footer' ),
-        ],
-        'default' => 'none',
-        'selectors' => [
-            '{{WRAPPER}} .custom-nav-menu ul.sub-menu > li > a' => 'border-style: {{VALUE}};',
-        ],
-    ]
-);
-$this->add_control(
-    'submenu_item_border',
-    [
-        'label' => __( 'Border Color', 'acewx-header-footer' ),
-        'type'  => \Elementor\Controls_Manager::COLOR,
-        'selectors' => [
-            '{{WRAPPER}} .custom-nav-menu ul.sub-menu > li > a' => 'border-color: {{VALUE}};',
-        ],
-    ]
-);
-$this->add_responsive_control(
-    'submenu_item_border_width',
-    [
-        'label' => __( 'Border Width', 'acewx-header-footer' ),
-        'type'  => \Elementor\Controls_Manager::DIMENSIONS,
-        'size_units' => [ 'px' ],
-        'selectors' => [
-            '{{WRAPPER}} .custom-nav-menu ul.sub-menu > li > a' =>
-                'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-        ],
-    ]
-);
-
-    // Submenu typography
-    $this->add_group_control(
-        \Elementor\Group_Control_Typography::get_type(),
+    $this->add_control(
+        'submenu_item_border_type',
         [
-            'name'     => 'submenu_typography',
-            'selector' => '{{WRAPPER}} .custom-nav-menu ul.sub-menu li a',
+            'label' => __( 'Border Type', 'acewx-header-footer' ),
+            'type'  => \Elementor\Controls_Manager::SELECT,
+            'options' => [
+                'none'   => __( 'None', 'acewx-header-footer' ),
+                'solid'  => __( 'Solid', 'acewx-header-footer' ),
+                'dashed' => __( 'Dashed', 'acewx-header-footer' ),
+                'dotted' => __( 'Dotted', 'acewx-header-footer' ),
+                'double' => __( 'Double', 'acewx-header-footer' ),
+            ],
+            'default' => 'none',
+            'selectors' => [
+                '{{WRAPPER}} .custom-nav-menu ul.sub-menu > li > a' => 'border-style: {{VALUE}};',
+            ],
+        ]
+);
+ $this->add_responsive_control(
+    'submenu_menu_item_padding_vertical',
+        [
+            'label' => __( 'Vertical Padding', 'acewx-header-footer' ),
+            'type'  => \Elementor\Controls_Manager::SLIDER,
+            'size_units' => [ 'px', 'em' ],
+            'range' => [
+                'px' => [ 'min' => 0, 'max' => 60 ],
+                'em' => [ 'min' => 0, 'max' => 5 ],
+            ],
+            'selectors' => [
+                '{{WRAPPER}} .custom-nav-menu ul.menu > li .sub-menu > li > a' =>
+                'padding-top: {{SIZE}}{{UNIT}}; padding-bottom: {{SIZE}}{{UNIT}};',
+            ],
+        ]
+    ); 
+    $this->add_control(
+        'submenu_item_border',
+        [
+            'label' => __( 'Border Color', 'acewx-header-footer' ),
+            'type'  => \Elementor\Controls_Manager::COLOR,
+            'selectors' => [
+                '{{WRAPPER}} .custom-nav-menu ul.sub-menu > li > a' => 'border-color: {{VALUE}};',
+            ],
+        ]
+    );
+    $this->add_responsive_control(
+        'submenu_item_border_width',
+        [
+            'label' => __( 'Border Width', 'acewx-header-footer' ),
+            'type'  => \Elementor\Controls_Manager::DIMENSIONS,
+            'size_units' => [ 'px' ],
+            'selectors' => [
+                '{{WRAPPER}} .custom-nav-menu ul.sub-menu > li > a' =>
+                    'border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+            ],
         ]
     );
 
-    $this->end_controls_section();
-}
+        // Submenu typography
+        $this->add_group_control(
+            \Elementor\Group_Control_Typography::get_type(),
+            [
+                'name'     => 'submenu_typography',
+                'selector' => '{{WRAPPER}} .custom-nav-menu ul.sub-menu li a',
+            ]
+        );
+
+        $this->end_controls_section();
+    }
 
     protected function render() {
         $settings = $this->get_settings_for_display();

@@ -90,7 +90,11 @@ mobile-sidebar.custom-nav-menu.align-right.layout-.icon-right {
  .mobile-sidebar .sidebar.menu-wrapper{
     display: none;
  }
-
+ul.menu li a {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
 /* Mobile */
 @media (max-width: 768px) {
    
@@ -165,5 +169,6 @@ ul.sub-menu {
     #custom-nav-menu-sidebar {
         display: none;
     }
+    
 }
 
